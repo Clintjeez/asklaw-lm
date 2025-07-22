@@ -8,8 +8,8 @@ const Auth = () => {
           <div className="flex justify-center mb-4">
             <Logo size="lg" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">InsightsLM</h1>
-          <p className="text-gray-600">Your AI-powered knowledge companion</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">AsklawLM</h1>
+          <p className="text-gray-600">Your AI-powered legal knowledge companion</p>
         </div>
         <AuthForm />
       </div>
