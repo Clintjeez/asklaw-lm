@@ -1,5 +1,5 @@
 {
-  "name": "InsightsLM - Extract Text",
+  "name": "AsklawLM - Extract Text",
   "nodes": [
     {
       "parameters": {
@@ -249,7 +249,7 @@
     },
     {
       "parameters": {
-        "content": "[![The AI Automators](https://www.theaiautomators.com/wp-content/uploads/2025/03/gray-logo.png)](https://www.theaiautomators.com/)\n## InsightsLM\nhttps://github.com/theaiautomators/insights-lm-public",
+        "content": "[![The AI Automators](https://www.theaiautomators.com/wp-content/uploads/2025/03/gray-logo.png)](https://www.theaiautomators.com/)\n## AsklawLM\nhttps://github.com/theaiautomators/asklaw-lm-public",
         "height": 220,
         "width": 280,
         "color": 7

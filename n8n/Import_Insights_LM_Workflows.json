@@ -1,5 +1,5 @@
 {
-  "name": "Import Insights LM Workflows",
+  "name": "Import AsklawLM Workflows",
   "nodes": [
     {
       "parameters": {
@@ -8,7 +8,7 @@
             {
               "id": "d0ee4497-e902-40c5-8938-811bb206f6c8",
               "name": "workflow-files",
-              "value": "=[\n    {\n      \"file_type\": \"extract-text\",\n      \"file_url\": \"https://raw.githubusercontent.com/theaiautomators/insights-lm-public/main/n8n/InsightsLM___Extract_Text.json\"\n    },\n    {\n      \"file_type\": \"generate-notebook-details\",\n      \"file_url\": \"https://raw.githubusercontent.com/theaiautomators/insights-lm-public/main/n8n/InsightsLM___Generate_Notebook_Details.json\"\n    },\n    {\n      \"file_type\": \"upsert-to-vector-store\",\n      \"file_url\": \"https://raw.githubusercontent.com/theaiautomators/insights-lm-public/main/n8n/InsightsLM___Upsert_to_Vector_Store.json\"\n    },\n    {\n      \"file_type\": \"process-additional-sources\",\n      \"file_url\": \"https://raw.githubusercontent.com/theaiautomators/insights-lm-public/main/n8n/InsightsLM___Process_Additional_Sources.json\"\n    },\n    {\n      \"file_type\": \"chat\",\n      \"file_url\": \"https://raw.githubusercontent.com/theaiautomators/insights-lm-public/main/n8n/InsightsLM___Chat.json\"\n    },\n    {\n      \"file_type\": \"podcast-generation\",\n      \"file_url\": \"https://raw.githubusercontent.com/theaiautomators/insights-lm-public/main/n8n/InsightsLM___Podcast_Generation.json\"\n    }\n  ]",
+              "value": "=[\n    {\n      \"file_type\": \"extract-text\",\n      \"file_url\": \"https://raw.githubusercontent.com/theaiautomators/asklaw-lm-public/main/n8n/AsklawLM___Extract_Text.json\"\n    },\n    {\n      \"file_type\": \"generate-notebook-details\",\n      \"file_url\": \"https://raw.githubusercontent.com/theaiautomators/asklaw-lm-public/main/n8n/AsklawLM___Generate_Notebook_Details.json\"\n    },\n    {\n      \"file_type\": \"upsert-to-vector-store\",\n      \"file_url\": \"https://raw.githubusercontent.com/theaiautomators/asklaw-lm-public/main/n8n/AsklawLM___Upsert_to_Vector_Store.json\"\n    },\n    {\n      \"file_type\": \"process-additional-sources\",\n      \"file_url\": \"https://raw.githubusercontent.com/theaiautomators/asklaw-lm-public/main/n8n/AsklawLM___Process_Additional_Sources.json\"\n    },\n    {\n      \"file_type\": \"chat\",\n      \"file_url\": \"https://raw.githubusercontent.com/theaiautomators/asklaw-lm-public/main/n8n/AsklawLM___Chat.json\"\n    },\n    {\n      \"file_type\": \"podcast-generation\",\n      \"file_url\": \"https://raw.githubusercontent.com/theaiautomators/asklaw-lm-public/main/n8n/AsklawLM___Podcast_Generation.json\"\n    }\n  ]",
               "type": "array"
             }
           ]
@@ -424,7 +424,7 @@
     },
     {
       "parameters": {
-        "content": "# Import Insights LM Workflows\n- Only run this workflow once to avoid having duplicate workflows in your project.\n- If you do create duplicate workflows, you can archive them in your instance\n- https://github.com/theaiautomators/insights-lm-public",
+        "content": "# Import AsklawLM Workflows\n- Only run this workflow once to avoid having duplicate workflows in your project.\n- If you do create duplicate workflows, you can archive them in your instance\n- https://github.com/theaiautomators/asklaw-lm-public",
         "width": 680,
         "color": 6
       },
