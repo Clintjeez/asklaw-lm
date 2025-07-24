@@ -26,7 +26,6 @@ max_client_conn = 100
 
 [realtime]
 enabled = true
-ip_version = "IPv4"
 
 [studio]
 enabled = true
@@ -45,7 +44,6 @@ file_size_limit = "50MiB"
 
 [edge_runtime]
 enabled = true
-ip_version = "IPv4"
 
 [analytics]
 enabled = false
