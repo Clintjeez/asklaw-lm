@@ -119,26 +119,26 @@ const LLmInterface = () => {
         {/* LLM Input Interface */}
         <div className='bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden'>
           {/* Large Textarea Input */}
-          <div className='p-6'>
+          <div className='p-4 sm:p-6'>
             <div className='relative'>
               <textarea
                 placeholder='Ask me anything about legal research, case law analysis, document review, or complex legal questions...'
-                className='w-full p-4 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-[#0a0a0a] focus:border-transparent text-base leading-relaxed'
-                rows={8}
-                style={{ minHeight: '240px' }}
+                className='w-full p-3 sm:p-4 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-[#0a0a0a] focus:border-transparent text-sm sm:text-base leading-relaxed'
+                rows={6}
+                style={{ minHeight: '180px' }}
                 value={textareaValue}
                 onChange={(e) => setTextareaValue(e.target.value)}
                 onKeyDown={handleKeyDown}
                 disabled={isSubmitting || isCreating}
               />
               {/* Context Dropdown */}
-              <div className='absolute bottom-4 left-4 flex gap-2'>
+              <div className='absolute bottom-3 sm:bottom-4 left-3 sm:left-4 flex gap-1 sm:gap-2'>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <button className='px-3 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm flex items-center gap-1'>
-                      Context: {selectedContext}
+                    <button className='px-2 sm:px-3 py-1 sm:py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-xs sm:text-sm flex items-center gap-1'>
+                      <span className='hidden sm:inline'>Context: </span>{selectedContext}
                       <svg
-                        className='w-4 h-4'
+                        className='w-3 h-3 sm:w-4 sm:h-4'
                         fill='none'
                         stroke='currentColor'
                         viewBox='0 0 24 24'
@@ -174,9 +174,9 @@ const LLmInterface = () => {
                 {/* Upload Button */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <button className='p-3 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors'>
+                    <button className='p-2 sm:p-3 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors'>
                       <svg
-                        className='w-5 h-5'
+                        className='w-4 h-4 sm:w-5 sm:h-5'
                         fill='none'
                         stroke='currentColor'
                         viewBox='0 0 24 24'
@@ -212,7 +212,7 @@ const LLmInterface = () => {
 
               {/* Send Button */}
               <button 
-                className={`absolute bottom-4 right-4 p-3 rounded-lg transition-colors ${
+                className={`absolute bottom-3 sm:bottom-4 right-3 sm:right-4 p-2 sm:p-3 rounded-lg transition-colors ${
                   textareaValue.trim() && !isSubmitting && !isCreating 
                     ? 'bg-[#0a0a0a] text-white hover:bg-[#2a2a2a]' 
                     : 'bg-gray-300 text-gray-500 cursor-not-allowed'
@@ -221,7 +221,7 @@ const LLmInterface = () => {
                 onClick={handleSubmit}
               >
                 <svg
-                  className='w-5 h-5'
+                  className='w-4 h-4 sm:w-5 sm:h-5'
                   fill='none'
                   stroke='currentColor'
                   viewBox='0 0 24 24'
@@ -313,9 +313,9 @@ const LLmInterface = () => {
               </div>
             )}
 
-            <div className='flex items-center justify-between mt-4 text-sm text-[#6b6b6b]'>
-              <span>AI-powered legal research assistant</span>
-              <span>{isSubmitting || isCreating ? 'Creating notebook...' : 'Press Enter to send'}</span>
+            <div className='flex flex-col sm:flex-row items-center justify-between mt-4 text-xs sm:text-sm text-[#6b6b6b] gap-2 sm:gap-0'>
+              <span className='text-center sm:text-left'>AI-powered legal research assistant</span>
+              <span className='text-center sm:text-right'>{isSubmitting || isCreating ? 'Creating notebook...' : 'Press Enter to send'}</span>
             </div>
           </div>
         </div>

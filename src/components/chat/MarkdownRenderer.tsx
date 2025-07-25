@@ -21,7 +21,29 @@ const MarkdownRenderer = ({ content, className = '', onCitationClick, isUserMess
   }
 
   // For legacy string content, convert to simple format
-  const segments: MessageSegment[] = [{ text: typeof content === 'string' ? content : '' }];
+  let textContent = typeof content === 'string' ? content : '';
+  
+  // Safety check: if content is still a JSON string, try to parse it
+  if (typeof content === 'string' && content.startsWith('{') && content.includes('"text"')) {
+    try {
+      const parsed = JSON.parse(content);
+      if (parsed.output && Array.isArray(parsed.output) && parsed.output[0]?.text) {
+        textContent = parsed.output[0].text;
+        console.log('MarkdownRenderer: Parsed JSON content to text:', textContent);
+      }
+    } catch (e) {
+      // If JSON parsing fails, try manual extraction
+      const textMatch = content.match(/"text":\s*"([^"]+)"/);
+      if (textMatch && textMatch[1]) {
+        textContent = textMatch[1];
+        console.log('MarkdownRenderer: Extracted text manually:', textContent);
+      } else {
+        console.log('MarkdownRenderer: Failed to parse JSON content, using raw:', content);
+      }
+    }
+  }
+  
+  const segments: MessageSegment[] = [{ text: textContent }];
   const citations: Citation[] = [];
   
   return (

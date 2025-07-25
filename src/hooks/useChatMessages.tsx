@@ -106,9 +106,22 @@ const transformMessage = (item: any, sourceMap: Map<string, any>): EnhancedChatM
           };
         } else {
           // Fallback for AI messages that don't match expected format
+          // If it's still a JSON string, try to extract the text content
+          let fallbackContent = messageObj.content;
+          if (typeof messageObj.content === 'string' && messageObj.content.startsWith('{')) {
+            try {
+              const parsedFallback = JSON.parse(messageObj.content);
+              if (parsedFallback.output && Array.isArray(parsedFallback.output) && parsedFallback.output[0]?.text) {
+                fallbackContent = parsedFallback.output[0].text;
+              }
+            } catch (e) {
+              console.log('Fallback JSON parse failed, using raw content');
+            }
+          }
+          
           transformedMessage = {
             type: 'ai',
-            content: messageObj.content,
+            content: fallbackContent,
             additional_kwargs: messageObj.additional_kwargs,
             response_metadata: messageObj.response_metadata,
             tool_calls: messageObj.tool_calls,
@@ -117,10 +130,24 @@ const transformMessage = (item: any, sourceMap: Map<string, any>): EnhancedChatM
         }
       } catch (parseError) {
         console.log('Failed to parse AI content as JSON, treating as plain text:', parseError);
-        // If parsing fails, treat as regular string content
+        
+        // If parsing fails, try to extract text from JSON-like string as fallback
+        let fallbackContent = messageObj.content;
+        if (typeof messageObj.content === 'string' && messageObj.content.includes('"text"')) {
+          try {
+            // Try to extract the text value from the JSON string manually
+            const textMatch = messageObj.content.match(/"text":\s*"([^"]+)"/);
+            if (textMatch && textMatch[1]) {
+              fallbackContent = textMatch[1];
+            }
+          } catch (e) {
+            console.log('Manual text extraction failed');
+          }
+        }
+        
         transformedMessage = {
           type: 'ai',
-          content: messageObj.content,
+          content: fallbackContent,
           additional_kwargs: messageObj.additional_kwargs,
           response_metadata: messageObj.response_metadata,
           tool_calls: messageObj.tool_calls,
