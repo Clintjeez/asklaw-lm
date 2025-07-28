@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import LLmInterface from '../llm-Interface/LLm-Interface';
 import AuthModal from '@/components/auth/AuthModal';
+import WaitlistModal from './WaitlistModal';
 const Hero = () => {
   const navigate = useNavigate();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isWaitlistModalOpen, setIsWaitlistModalOpen] = useState(false);
 
   return (
     <main className='flex-1 flex items-center pt-16'>
@@ -38,13 +40,9 @@ const Hero = () => {
               variant='outline'
               size='lg'
               className='border-[#6b6b6b] text-[#6b6b6b] hover:bg-gray-50 px-6 py-3 text-base rounded-lg transition-colors w-full sm:w-fit'
-              onClick={() => {
-                document
-                  .getElementById('features')
-                  ?.scrollIntoView({ behavior: 'smooth' });
-              }}
+              onClick={() => setIsWaitlistModalOpen(true)}
             >
-              Contact Sales
+              Join Waitlist
             </Button>
           </div>
         </div>
@@ -70,6 +68,12 @@ const Hero = () => {
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
+      />
+      
+      {/* Waitlist Modal */}
+      <WaitlistModal
+        isOpen={isWaitlistModalOpen}
+        onClose={() => setIsWaitlistModalOpen(false)}
       />
     </main>
   );
