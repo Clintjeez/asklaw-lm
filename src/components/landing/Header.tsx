@@ -19,6 +19,7 @@ const Header = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileSolutionsOpen, setIsMobileSolutionsOpen] = useState(false);
+  const [isMobileCompanyOpen, setIsMobileCompanyOpen] = useState(false);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -103,20 +104,42 @@ const Header = () => {
             </DropdownMenu>
 
             <a
-              href='#contact'
-              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors'
+              href='#'
+              onClick={() => navigate('/security')}
+              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors cursor-pointer'
             >
               Security
             </a>
+            {/* Company Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className='flex items-center gap-1 text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors'>
+                  Company
+                  <ChevronDown className='h-4 w-4' />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align='start' className='w-48'>
+                <DropdownMenuItem className='p-3' onClick={() => navigate('/about')}>
+                  <div>
+                    <span className='font-medium text-[#0a0a0a]'>About</span>
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuItem className='p-3' onClick={() => navigate('/careers')}>
+                  <div>
+                    <span className='font-medium text-[#0a0a0a]'>Careers</span>
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuItem className='p-3' onClick={() => navigate('/changelog')}>
+                  <div>
+                    <span className='font-medium text-[#0a0a0a]'>Changelog</span>
+                  </div>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
             <a
-              href='#contact'
-              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors'
-            >
-              Company
-            </a>
-            <a
-              href='#contact'
-              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors'
+              href='#'
+              onClick={() => navigate('/pricing')}
+              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors cursor-pointer'
             >
               Pricing
             </a>
@@ -287,23 +310,66 @@ const Header = () => {
             </div>
 
             <a
-              href='#contact'
-              className='block text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2'
-              onClick={() => setIsMobileMenuOpen(false)}
+              href='#'
+              onClick={() => {
+                navigate('/security');
+                setIsMobileMenuOpen(false);
+              }}
+              className='block text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2 cursor-pointer'
             >
               Security
             </a>
+            {/* Mobile Company Dropdown */}
+            <div>
+              <button
+                onClick={() => setIsMobileCompanyOpen(!isMobileCompanyOpen)}
+                className='flex items-center justify-between w-full text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2'
+              >
+                Company
+                <ChevronDown className={`h-4 w-4 transition-transform ${isMobileCompanyOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {isMobileCompanyOpen && (
+                <div className='ml-4 mt-2 space-y-2'>
+                  <div 
+                    className='py-2 cursor-pointer'
+                    onClick={() => {
+                      navigate('/about');
+                      setIsMobileMenuOpen(false);
+                      setIsMobileCompanyOpen(false);
+                    }}
+                  >
+                    <div className='font-medium text-[#0a0a0a] text-sm'>About</div>
+                  </div>
+                  <div 
+                    className='py-2 cursor-pointer'
+                    onClick={() => {
+                      navigate('/careers');
+                      setIsMobileMenuOpen(false);
+                      setIsMobileCompanyOpen(false);
+                    }}
+                  >
+                    <div className='font-medium text-[#0a0a0a] text-sm'>Careers</div>
+                  </div>
+                  <div 
+                    className='py-2 cursor-pointer'
+                    onClick={() => {
+                      navigate('/changelog');
+                      setIsMobileMenuOpen(false);
+                      setIsMobileCompanyOpen(false);
+                    }}
+                  >
+                    <div className='font-medium text-[#0a0a0a] text-sm'>Changelog</div>
+                  </div>
+                </div>
+              )}
+            </div>
             <a
-              href='#contact'
-              className='block text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2'
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Company
-            </a>
-            <a
-              href='#contact'
-              className='block text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2'
-              onClick={() => setIsMobileMenuOpen(false)}
+              href='#'
+              onClick={() => {
+                navigate('/pricing');
+                setIsMobileMenuOpen(false);
+              }}
+              className='block text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2 cursor-pointer'
             >
               Pricing
             </a>

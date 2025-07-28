@@ -13,6 +13,8 @@ import AskLawOps from "./pages/AskLawOps";
 import AskLawIndex from "./pages/AskLawIndex";
 import AskLawDraft from "./pages/AskLawDraft";
 import AskLawTranslate from "./pages/AskLawTranslate";
+import Security from "./pages/Security";
+import Pricing from "./pages/Pricing";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +27,8 @@ const AppContent = () => {
       <Route path="/index" element={<AskLawIndex />} />
       <Route path="/draft" element={<AskLawDraft />} />
       <Route path="/translate" element={<AskLawTranslate />} />
+      <Route path="/security" element={<Security />} />
+      <Route path="/pricing" element={<Pricing />} />
       <Route 
         path="/dashboard" 
         element={
