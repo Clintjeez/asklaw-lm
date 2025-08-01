@@ -94,17 +94,15 @@ const WaitlistModal = ({ isOpen, onClose }: WaitlistModalProps) => {
 
     try {
       // Submit directly to Supabase waitlist table
-      const { data, error } = await supabase
-        .from('waitlist')
-        .insert({
-          full_name: formData.fullName,
-          email: formData.email,
-          organization: formData.organization || null,
-          practice_area: formData.practiceArea || null,
-          use_case: formData.useCase || null,
-          agree_to_updates: formData.agreeToUpdates,
-          status: 'pending'
-        });
+      const { data, error } = await supabase.from('waitlist').insert({
+        full_name: formData.fullName,
+        email: formData.email,
+        organization: formData.organization || null,
+        practice_area: formData.practiceArea || null,
+        use_case: formData.useCase || null,
+        agree_to_updates: formData.agreeToUpdates,
+        status: 'pending',
+      });
 
       if (error) {
         throw error;
@@ -114,7 +112,8 @@ const WaitlistModal = ({ isOpen, onClose }: WaitlistModalProps) => {
       setIsSuccess(true);
       toast({
         title: 'Success!',
-        description: "You've been added to our waitlist. We'll be in touch soon!",
+        description:
+          "You've been added to our waitlist. We'll be in touch soon!",
       });
 
       // Reset form after successful submission
@@ -132,7 +131,7 @@ const WaitlistModal = ({ isOpen, onClose }: WaitlistModalProps) => {
       }, 2000);
     } catch (error) {
       console.error('Error submitting waitlist:', error);
-      
+
       toast({
         title: 'Error',
         description: 'Failed to join waitlist. Please try again.',
@@ -180,15 +179,6 @@ const WaitlistModal = ({ isOpen, onClose }: WaitlistModalProps) => {
             <DialogTitle className='text-xl font-semibold'>
               Join the Waitlist
             </DialogTitle>
-            <Button
-              variant='ghost'
-              size='sm'
-              onClick={handleClose}
-              disabled={isSubmitting}
-              className='h-8 w-8 p-0'
-            >
-              <X className='h-4 w-4' />
-            </Button>
           </div>
           <p className='text-sm text-gray-600 mt-2'>
             Get early access to AskLaw LM and be among the first to

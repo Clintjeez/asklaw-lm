@@ -15,6 +15,7 @@ import AskLawDraft from "./pages/AskLawDraft";
 import AskLawTranslate from "./pages/AskLawTranslate";
 import Security from "./pages/Security";
 import Pricing from "./pages/Pricing";
+import Enterprise from "./pages/Enterprise";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const AppContent = () => {
       <Route path="/translate" element={<AskLawTranslate />} />
       <Route path="/security" element={<Security />} />
       <Route path="/pricing" element={<Pricing />} />
+      <Route path="/enterprise" element={<Enterprise />} />
       <Route 
         path="/dashboard" 
         element={

@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import Header from '@/components/landing/Header';
-import { 
+import {
   Shield,
   Lock,
   Eye,
@@ -12,50 +12,39 @@ import {
   Award,
   Globe,
   Zap,
-  Clock
+  Clock,
 } from 'lucide-react';
 
 const Security = () => {
   return (
-    <div className='min-h-screen bg-white'>
+    <div className='min-h-screen bg-[#fbfbf9]'>
       <Header />
-      
+
       <main className='pt-16'>
-        {/* Hero Section */}
-        <section 
-          className='relative py-20'
-          style={{
-            backgroundImage: 'url(/noisy.png)',
-            backgroundRepeat: 'repeat',
-            backgroundSize: 'auto',
-          }}
-        >
-          {/* Gradient Overlay - Faded Version */}
-          <div className='absolute inset-0 bg-gradient-to-br from-[#83a17d] via-[#bfceb4] to-[#283128] opacity-20'></div>
-          
-          {/* Content Overlay */}
-          <div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-            <div className='text-center'>
-              <h1 className='text-4xl md:text-6xl font-light text-[#0a0a0a] leading-tight mb-6'>
-                Security & <span className='font-normal'>Compliance</span>
-              </h1>
-              <p className='text-xl text-[#6b6b6b] mb-8 max-w-3xl mx-auto leading-relaxed'>
-                Enterprise-grade security designed for legal professionals. 
-                Protect your clients' confidential information with bank-level encryption and compliance.
+        {/* Hero Section - Minimalist & Bold */}
+        <section className='py-32 bg-gradient-to-b from-gray-50 to-white'>
+          <div className='max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
+            <div className='space-y-8'>
+              <div className='space-y-4'>
+                <h1 className='text-5xl md:text-7xl font-bold text-[#0a0a0a] tracking-tight'>
+                  Security
+                </h1>
+                <div className='w-24 h-1 bg-[#0a0a0a] mx-auto'></div>
+              </div>
+
+              <p className='text-xl md:text-2xl text-[#6b6b6b] font-light max-w-3xl mx-auto leading-relaxed'>
+                Enterprise-grade security designed for legal professionals.
+                Protect your clients' confidential information with bank-level
+                encryption and compliance.
               </p>
-              <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-                <Button 
-                  size='lg' 
-                  className='bg-[#0a0a0a] hover:bg-[#2a2a2a] text-white px-8 py-3'
+
+              <div className='pt-8'>
+                <Button
+                  size='lg'
+                  className='bg-[#0a0a0a] hover:bg-[#2a2a2a] text-white px-12 py-4 text-lg font-medium'
                 >
                   Security Overview
-                </Button>
-                <Button 
-                  variant='outline' 
-                  size='lg' 
-                  className='border-[#6b6b6b] text-[#6b6b6b] hover:bg-gray-50 px-8 py-3'
-                >
-                  Compliance Docs
+                  <ArrowRight className='ml-2 h-5 w-5' />
                 </Button>
               </div>
             </div>
@@ -70,7 +59,7 @@ const Security = () => {
                 Built for legal professionals
               </h2>
               <p className='text-lg text-[#6b6b6b] max-w-2xl mx-auto'>
-                Comprehensive security measures that meet the highest standards 
+                Comprehensive security measures that meet the highest standards
                 for attorney-client privilege and legal industry compliance.
               </p>
             </div>
@@ -81,9 +70,11 @@ const Security = () => {
                 <div className='w-12 h-12 bg-[#0a0a0a] rounded-lg flex items-center justify-center mb-4'>
                   <Lock className='h-6 w-6 text-white' />
                 </div>
-                <h3 className='text-xl font-semibold text-[#0a0a0a] mb-2'>End-to-End Encryption</h3>
+                <h3 className='text-xl font-semibold text-[#0a0a0a] mb-2'>
+                  End-to-End Encryption
+                </h3>
                 <p className='text-[#6b6b6b] mb-4'>
-                  AES-256 encryption protects your data in transit and at rest, 
+                  AES-256 encryption protects your data in transit and at rest,
                   ensuring complete confidentiality of client communications.
                 </p>
                 <ul className='text-sm text-[#6b6b6b] space-y-2'>
@@ -107,9 +98,11 @@ const Security = () => {
                 <div className='w-12 h-12 bg-[#0a0a0a] rounded-lg flex items-center justify-center mb-4'>
                   <Eye className='h-6 w-6 text-white' />
                 </div>
-                <h3 className='text-xl font-semibold text-[#0a0a0a] mb-2'>Attorney-Client Privilege</h3>
+                <h3 className='text-xl font-semibold text-[#0a0a0a] mb-2'>
+                  Attorney-Client Privilege
+                </h3>
                 <p className='text-[#6b6b6b] mb-4'>
-                  Designed to maintain and protect attorney-client privilege 
+                  Designed to maintain and protect attorney-client privilege
                   with strict data isolation and access controls.
                 </p>
                 <ul className='text-sm text-[#6b6b6b] space-y-2'>
@@ -133,9 +126,11 @@ const Security = () => {
                 <div className='w-12 h-12 bg-[#0a0a0a] rounded-lg flex items-center justify-center mb-4'>
                   <Server className='h-6 w-6 text-white' />
                 </div>
-                <h3 className='text-xl font-semibold text-[#0a0a0a] mb-2'>Secure Infrastructure</h3>
+                <h3 className='text-xl font-semibold text-[#0a0a0a] mb-2'>
+                  Secure Infrastructure
+                </h3>
                 <p className='text-[#6b6b6b] mb-4'>
-                  Enterprise-grade cloud infrastructure with redundant security 
+                  Enterprise-grade cloud infrastructure with redundant security
                   layers and 99.9% uptime guarantee.
                 </p>
                 <ul className='text-sm text-[#6b6b6b] space-y-2'>
@@ -159,10 +154,12 @@ const Security = () => {
                 <div className='w-12 h-12 bg-[#0a0a0a] rounded-lg flex items-center justify-center mb-4'>
                   <Users className='h-6 w-6 text-white' />
                 </div>
-                <h3 className='text-xl font-semibold text-[#0a0a0a] mb-2'>Identity & Access Management</h3>
+                <h3 className='text-xl font-semibold text-[#0a0a0a] mb-2'>
+                  Identity & Access Management
+                </h3>
                 <p className='text-[#6b6b6b] mb-4'>
-                  Granular access controls with multi-factor authentication 
-                  and role-based permissions for your team.
+                  Granular access controls with multi-factor authentication and
+                  role-based permissions for your team.
                 </p>
                 <ul className='text-sm text-[#6b6b6b] space-y-2'>
                   <li className='flex items-center gap-2'>
@@ -185,10 +182,12 @@ const Security = () => {
                 <div className='w-12 h-12 bg-[#0a0a0a] rounded-lg flex items-center justify-center mb-4'>
                   <FileCheck className='h-6 w-6 text-white' />
                 </div>
-                <h3 className='text-xl font-semibold text-[#0a0a0a] mb-2'>Audit Trails</h3>
+                <h3 className='text-xl font-semibold text-[#0a0a0a] mb-2'>
+                  Audit Trails
+                </h3>
                 <p className='text-[#6b6b6b] mb-4'>
-                  Comprehensive logging and audit trails for all system activity, 
-                  ensuring transparency and regulatory compliance.
+                  Comprehensive logging and audit trails for all system
+                  activity, ensuring transparency and regulatory compliance.
                 </p>
                 <ul className='text-sm text-[#6b6b6b] space-y-2'>
                   <li className='flex items-center gap-2'>
@@ -211,10 +210,12 @@ const Security = () => {
                 <div className='w-12 h-12 bg-[#0a0a0a] rounded-lg flex items-center justify-center mb-4'>
                   <Shield className='h-6 w-6 text-white' />
                 </div>
-                <h3 className='text-xl font-semibold text-[#0a0a0a] mb-2'>Data Protection</h3>
+                <h3 className='text-xl font-semibold text-[#0a0a0a] mb-2'>
+                  Data Protection
+                </h3>
                 <p className='text-[#6b6b6b] mb-4'>
-                  Advanced threat protection, backup systems, and disaster recovery 
-                  to safeguard your critical legal data.
+                  Advanced threat protection, backup systems, and disaster
+                  recovery to safeguard your critical legal data.
                 </p>
                 <ul className='text-sm text-[#6b6b6b] space-y-2'>
                   <li className='flex items-center gap-2'>
@@ -243,7 +244,8 @@ const Security = () => {
                 Industry compliance standards
               </h2>
               <p className='text-lg text-[#6b6b6b] max-w-2xl mx-auto'>
-                Meet and exceed regulatory requirements with comprehensive compliance coverage.
+                Meet and exceed regulatory requirements with comprehensive
+                compliance coverage.
               </p>
             </div>
 
@@ -252,7 +254,9 @@ const Security = () => {
                 <div className='w-16 h-16 bg-[#0a0a0a] rounded-full flex items-center justify-center mx-auto mb-4'>
                   <Award className='h-8 w-8 text-white' />
                 </div>
-                <h3 className='text-lg font-semibold text-[#0a0a0a] mb-2'>SOC 2 Type II</h3>
+                <h3 className='text-lg font-semibold text-[#0a0a0a] mb-2'>
+                  SOC 2 Type II
+                </h3>
                 <p className='text-sm text-[#6b6b6b]'>
                   Audited security controls and operational effectiveness
                 </p>
@@ -262,7 +266,9 @@ const Security = () => {
                 <div className='w-16 h-16 bg-[#0a0a0a] rounded-full flex items-center justify-center mx-auto mb-4'>
                   <Globe className='h-8 w-8 text-white' />
                 </div>
-                <h3 className='text-lg font-semibold text-[#0a0a0a] mb-2'>GDPR Compliant</h3>
+                <h3 className='text-lg font-semibold text-[#0a0a0a] mb-2'>
+                  GDPR Compliant
+                </h3>
                 <p className='text-sm text-[#6b6b6b]'>
                   European data protection and privacy regulation compliance
                 </p>
@@ -272,7 +278,9 @@ const Security = () => {
                 <div className='w-16 h-16 bg-[#0a0a0a] rounded-full flex items-center justify-center mx-auto mb-4'>
                   <Shield className='h-8 w-8 text-white' />
                 </div>
-                <h3 className='text-lg font-semibold text-[#0a0a0a] mb-2'>HIPAA Ready</h3>
+                <h3 className='text-lg font-semibold text-[#0a0a0a] mb-2'>
+                  HIPAA Ready
+                </h3>
                 <p className='text-sm text-[#6b6b6b]'>
                   Healthcare information privacy and security standards
                 </p>
@@ -282,7 +290,9 @@ const Security = () => {
                 <div className='w-16 h-16 bg-[#0a0a0a] rounded-full flex items-center justify-center mx-auto mb-4'>
                   <FileCheck className='h-8 w-8 text-white' />
                 </div>
-                <h3 className='text-lg font-semibold text-[#0a0a0a] mb-2'>ABA Standards</h3>
+                <h3 className='text-lg font-semibold text-[#0a0a0a] mb-2'>
+                  ABA Standards
+                </h3>
                 <p className='text-sm text-[#6b6b6b]'>
                   American Bar Association technology guidelines compliance
                 </p>
@@ -299,7 +309,8 @@ const Security = () => {
                 Trusted by legal professionals
               </h2>
               <p className='text-lg text-[#6b6b6b] max-w-2xl mx-auto'>
-                Our security measures have earned the trust of law firms worldwide.
+                Our security measures have earned the trust of law firms
+                worldwide.
               </p>
             </div>
 
@@ -308,9 +319,12 @@ const Security = () => {
                 <div className='w-16 h-16 bg-[#0a0a0a] rounded-full flex items-center justify-center mx-auto mb-4'>
                   <Clock className='h-8 w-8 text-white' />
                 </div>
-                <h3 className='text-2xl font-semibold text-[#0a0a0a] mb-2'>99.9% Uptime</h3>
+                <h3 className='text-2xl font-semibold text-[#0a0a0a] mb-2'>
+                  99.9% Uptime
+                </h3>
                 <p className='text-[#6b6b6b]'>
-                  Enterprise-grade reliability with guaranteed service availability.
+                  Enterprise-grade reliability with guaranteed service
+                  availability.
                 </p>
               </div>
 
@@ -318,9 +332,12 @@ const Security = () => {
                 <div className='w-16 h-16 bg-[#0a0a0a] rounded-full flex items-center justify-center mx-auto mb-4'>
                   <Shield className='h-8 w-8 text-white' />
                 </div>
-                <h3 className='text-2xl font-semibold text-[#0a0a0a] mb-2'>Zero Breaches</h3>
+                <h3 className='text-2xl font-semibold text-[#0a0a0a] mb-2'>
+                  Zero Breaches
+                </h3>
                 <p className='text-[#6b6b6b]'>
-                  Perfect security track record with no data breaches since inception.
+                  Perfect security track record with no data breaches since
+                  inception.
                 </p>
               </div>
 
@@ -328,7 +345,9 @@ const Security = () => {
                 <div className='w-16 h-16 bg-[#0a0a0a] rounded-full flex items-center justify-center mx-auto mb-4'>
                   <Users className='h-8 w-8 text-white' />
                 </div>
-                <h3 className='text-2xl font-semibold text-[#0a0a0a] mb-2'>10,000+ Users</h3>
+                <h3 className='text-2xl font-semibold text-[#0a0a0a] mb-2'>
+                  10,000+ Users
+                </h3>
                 <p className='text-[#6b6b6b]'>
                   Trusted by legal professionals across 50+ countries worldwide.
                 </p>
@@ -344,20 +363,20 @@ const Security = () => {
               Ready to secure your practice?
             </h2>
             <p className='text-lg text-[#6b6b6b] mb-8 max-w-2xl mx-auto'>
-              Experience enterprise-grade security designed specifically 
-              for legal professionals and their clients.
+              Experience enterprise-grade security designed specifically for
+              legal professionals and their clients.
             </p>
             <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-              <Button 
-                size='lg' 
+              <Button
+                size='lg'
                 className='bg-[#0a0a0a] hover:bg-[#2a2a2a] text-white px-8 py-3'
               >
                 Get Security Assessment
                 <ArrowRight className='ml-2 h-4 w-4' />
               </Button>
-              <Button 
-                variant='outline' 
-                size='lg' 
+              <Button
+                variant='outline'
+                size='lg'
                 className='border-[#6b6b6b] text-[#6b6b6b] hover:bg-gray-50 px-8 py-3'
               >
                 Download Security Whitepaper

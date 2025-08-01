@@ -11,31 +11,31 @@ const Hero = () => {
 
   return (
     <main className='flex-1 flex items-center pt-16'>
-      <div className='w-full flex flex-col lg:flex-row h-full'>
+      <div className='w-full flex flex-col-reverse lg:flex-row h-full'>
         {/* Left Column - Marketing Content */}
         <div className='w-full lg:w-[30%] flex flex-col justify-center px-6 sm:px-8 lg:px-12 py-8 lg:py-0'>
           {/* Hero Headline */}
-          <h1 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-[#0a0a0a] leading-[0.9] tracking-tight mb-6 text-center lg:text-left'>
+          <h1 className='text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-light text-[#0a0a0a] leading-[0.9] tracking-tight mb-6 text-left'>
             AI-Powered
             <br />
-            <span className='font-normal'>Legal Assistant</span>
+            <span className='font-normal'>Legal Workspace</span>
           </h1>
 
           {/* Hero Subtext */}
-          <p className='text-base sm:text-lg text-[#6b6b6b] mb-8 leading-relaxed text-center lg:text-left max-w-md mx-auto lg:mx-0'>
+          <p className='text-base sm:text-lg text-[#6b6b6b] mb-8 leading-relaxed text-left max-w-md mx-auto lg:mx-0'>
             Transform your legal research with intelligent document analysis,
             case law discovery, and collaborative knowledge management.
           </p>
 
           {/* CTA Buttons */}
           <div className='flex flex-col sm:flex-row gap-3 items-center lg:items-start'>
-            <Button
-              onClick={() => setIsAuthModalOpen(true)}
-              size='lg'
-              className='bg-[#0a0a0a] hover:bg-[#2a2a2a] text-white px-6 py-3 text-base rounded-lg transition-colors w-full sm:w-fit'
+            <a
+              href='https://cal.com/asklawlm/30min'
+              target='_blank'
+              className='bg-[#0a0a0a] hover:bg-[#2a2a2a] text-white px-6 py-3 text-center text-base rounded-lg transition-colors w-full sm:w-fit'
             >
-              Get Started
-            </Button>
+              Contact Sales
+            </a>
             <Button
               variant='outline'
               size='lg'
@@ -69,7 +69,7 @@ const Hero = () => {
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
       />
-      
+
       {/* Waitlist Modal */}
       <WaitlistModal
         isOpen={isWaitlistModalOpen}
