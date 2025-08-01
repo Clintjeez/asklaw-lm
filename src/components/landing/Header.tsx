@@ -77,13 +77,13 @@ const Header = () => {
             >
               FAQ
             </a>
-            <a
+            {/* <a
               href='#'
               onClick={() => setIsAuthModalOpen(true)}
               className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors cursor-pointer'
             >
               Login
-            </a>
+            </a> */}
           </div>
 
           {/* Desktop CTA Button or User Menu */}
@@ -215,47 +215,8 @@ const Header = () => {
               FAQ
             </a>
             {/* Mobile Resources Dropdown */}
-            <div>
-              <button
-                onClick={() => setIsMobileResourcesOpen(!isMobileResourcesOpen)}
-                className='flex items-center justify-between w-full text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2'
-              >
-                Resources
-                <ChevronDown
-                  className={`h-4 w-4 transition-transform ${isMobileResourcesOpen ? 'rotate-180' : ''}`}
-                />
-              </button>
-              {isMobileResourcesOpen && (
-                <div className='ml-4 mt-2 space-y-2'>
-                  <div
-                    className='py-2 cursor-pointer'
-                    onClick={() => {
-                      navigate('/blog');
-                      setIsMobileMenuOpen(false);
-                      setIsMobileResourcesOpen(false);
-                    }}
-                  >
-                    <div className='font-medium text-[#0a0a0a] text-sm'>
-                      Blog
-                    </div>
-                  </div>
-                  <div
-                    className='py-2 cursor-pointer'
-                    onClick={() => {
-                      navigate('/changelog');
-                      setIsMobileMenuOpen(false);
-                      setIsMobileResourcesOpen(false);
-                    }}
-                  >
-                    <div className='font-medium text-[#0a0a0a] text-sm'>
-                      Changelog
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
 
-            <a
+            {/* <a
               href='#'
               onClick={() => {
                 setIsAuthModalOpen(true);
@@ -264,7 +225,7 @@ const Header = () => {
               className='block text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2 cursor-pointer'
             >
               Login
-            </a>
+            </a> */}
           </div>
         </div>
       )}
