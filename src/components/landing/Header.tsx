@@ -77,13 +77,13 @@ const Header = () => {
             >
               FAQ
             </a>
-            <a
+            {/* <a
               href='#'
               onClick={() => setIsAuthModalOpen(true)}
               className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors cursor-pointer'
             >
               Login
-            </a>
+            </a> */}
           </div>
 
           {/* Desktop CTA Button or User Menu */}

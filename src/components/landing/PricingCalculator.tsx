@@ -31,13 +31,13 @@ const PricingCalculator = () => {
     {
       name: 'Starter Plan',
       price: 0,
-      credits: 1000,
+      credits: 500,
       users: 1,
-      storage: 10,
+      storage: 1,
       popular: false,
       features: [
         '1 team member',
-        '10GB storage',
+        '1GB storage',
         'Basic AskLawLM access',
         'Community support',
         'Standard queries',
@@ -110,13 +110,13 @@ const PricingCalculator = () => {
       <div className='max-w-7xl mx-auto'>
         {/* Section Header */}
         <div className='text-left mb-16'>
-          <Badge className='mb-4 bg-[#83a17d]/10 text-[#83a17d] border-[#83a17d]/20'>
+          <Badge className='mb-4 bg-[#83a17d]/10 text-[#83a17d] border-[#83a17d]/20 hover:bg-transparent'>
             Credit-Based Pricing
           </Badge>
           <h2 className='text-3xl sm:text-4xl font-light text-[#0a0a0a] mb-4'>
             Transparent Pricing That Scales With You
           </h2>
-          <p className='text-lg text-[#6b6b6b] max-w-2xl mx-auto'>
+          <p className='text-lg text-[#6b6b6b] max-w-2xl'>
             Pay only for what you use with our credit-based system. No hidden
             fees, no surprises. Scale your team and storage as your practice
             grows.

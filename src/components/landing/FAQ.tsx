@@ -57,7 +57,7 @@ const FAQ = () => {
           <h2 className='text-3xl sm:text-4xl font-light text-[#0a0a0a] mb-4'>
             Frequently Asked Questions
           </h2>
-          <p className='text-lg text-[#6b6b6b] max-w-2xl mx-auto'>
+          <p className='text-lg text-[#6b6b6b] max-w-2xl'>
             Get answers to common questions about AskLawLM and how it can
             transform your legal practice.
           </p>
