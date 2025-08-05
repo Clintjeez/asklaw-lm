@@ -18,7 +18,7 @@ const WhySection = () => {
       <div className='flex justify-start text-left'>
         <Button
           onClick={() => setIsWaitlistModalOpen(true)}
-          className='lg:w-auto hover:bg-transparent h-auto leading-relaxed text-[10px] sm:text-sm md:text-xl bg-[#83a17d]/10 text-[#83a17d] border-[#83a17d]/20 flex items-center justify-center p-2 lg:p-4 gap-2 transition-all duration-300 group'
+          className='lg:w-auto border hover:bg-transparent  h-auto leading-relaxed text-[10px] sm:text-sm md:text-xl bg-[#83a17d]/10 text-[#83a17d] border-[#83a17d]/20 flex items-center justify-center p-2 lg:p-4 gap-2 transition-all duration-300 group'
         >
           <MoveRight className='h-5 w-5 sm:h-6 sm:w-6 group-hover:translate-x-1 transition-transform duration-300' />
           <span>Join now to experience AI-powered legal teamwork.</span>
