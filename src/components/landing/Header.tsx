@@ -77,13 +77,13 @@ const Header = () => {
             >
               FAQ
             </a>
-            {/* <a
+            <a
               href='#'
               onClick={() => setIsAuthModalOpen(true)}
               className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors cursor-pointer'
             >
-              Login
-            </a> */}
+              Sign in
+            </a>
           </div>
 
           {/* Desktop CTA Button or User Menu */}
@@ -116,10 +116,10 @@ const Header = () => {
             </div>
           ) : (
             <Button
-              onClick={() => setIsWaitlistModalOpen(true)}
+              onClick={() => navigate('/signup')}
               className='bg-[#0a0a0a] hover:bg-[#2a2a2a] text-white px-6 py-2 rounded-lg transition-colors'
             >
-              Join Waitlist
+              Get Started
             </Button>
           )}
         </div>
@@ -151,11 +151,11 @@ const Header = () => {
             </DropdownMenu>
           ) : (
             <Button
-              onClick={() => setIsWaitlistModalOpen(true)}
+              onClick={() => navigate('/signup')}
               size='sm'
               className='bg-[#0a0a0a] hover:bg-[#2a2a2a] text-white px-4 py-2 rounded-lg transition-colors'
             >
-              Join Waitlist
+              Get Started
             </Button>
           )}
 

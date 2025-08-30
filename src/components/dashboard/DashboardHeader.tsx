@@ -3,7 +3,9 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { User, LogOut } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { useLogout } from '@/services/authService';
+import { useClerk } from '@clerk/clerk-react';
+import { useToast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
 import Logo from '@/components/ui/Logo';
 
 interface DashboardHeaderProps {
@@ -11,7 +13,28 @@ interface DashboardHeaderProps {
 }
 
 const DashboardHeader = ({ userEmail }: DashboardHeaderProps) => {
-  const { logout } = useLogout();
+  const { signOut } = useClerk();
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      toast({
+        title: 'Signed out',
+        description: 'You have been successfully signed out.',
+      });
+      navigate('/', { replace: true });
+    } catch (error) {
+      console.error('Logout error:', error);
+      toast({
+        title: 'Signed out',
+        description: 'You have been signed out locally.',
+        variant: 'default',
+      });
+      navigate('/', { replace: true });
+    }
+  };
 
   return (
     <header className="bg-white px-6 py-4">
@@ -31,7 +54,7 @@ const DashboardHeader = ({ userEmail }: DashboardHeaderProps) => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
-              <DropdownMenuItem onClick={logout} className="cursor-pointer">
+              <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
                 <LogOut className="h-4 w-4 mr-2" />
                 Sign Out
               </DropdownMenuItem>

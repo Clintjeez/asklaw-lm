@@ -16,7 +16,7 @@ const LLmInterface = () => {
   const { isAuthenticated } = useAuth();
   const { createNotebook, isCreating } = useNotebooks();
   const { toast } = useToast();
-  
+
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [selectedUrls, setSelectedUrls] = useState<string[]>([]);
   const [showUrlInput, setShowUrlInput] = useState(false);
@@ -63,43 +63,49 @@ const LLmInterface = () => {
 
     try {
       // Create new notebook with the user's query as title
-      const title = textareaValue.trim().length > 50 
-        ? textareaValue.trim().substring(0, 50) + '...'
-        : textareaValue.trim();
+      const title =
+        textareaValue.trim().length > 50
+          ? textareaValue.trim().substring(0, 50) + '...'
+          : textareaValue.trim();
 
-      createNotebook({
-        title,
-        description: 'Legal research notebook created from landing page query'
-      }, {
-        onSuccess: (notebook) => {
-          console.log('Notebook created:', notebook);
-          
-          // Store the initial query in sessionStorage to pass to the notebook
-          sessionStorage.setItem('initialQuery', textareaValue.trim());
-          
-          // Navigate to the new notebook
-          navigate(`/notebook/${notebook.id}`);
-          
-          toast({
-            title: "Research Started",
-            description: "Created new notebook for your legal research query.",
-          });
+      createNotebook(
+        {
+          title,
+          description:
+            'Legal research notebook created from landing page query',
         },
-        onError: (error) => {
-          console.error('Failed to create notebook:', error);
-          toast({
-            title: "Error",
-            description: "Failed to create notebook. Please try again.",
-            variant: "destructive",
-          });
+        {
+          onSuccess: (notebook) => {
+            console.log('Notebook created:', notebook);
+
+            // Store the initial query in sessionStorage to pass to the notebook
+            sessionStorage.setItem('initialQuery', textareaValue.trim());
+
+            // Navigate to the new notebook
+            navigate(`/notebook/${notebook.id}`);
+
+            toast({
+              title: 'Research Started',
+              description:
+                'Created new notebook for your legal research query.',
+            });
+          },
+          onError: (error) => {
+            console.error('Failed to create notebook:', error);
+            toast({
+              title: 'Error',
+              description: 'Failed to create notebook. Please try again.',
+              variant: 'destructive',
+            });
+          },
         }
-      });
+      );
     } catch (error) {
       console.error('Error in handleSubmit:', error);
       toast({
-        title: "Error",
-        description: "Something went wrong. Please try again.",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Something went wrong. Please try again.',
+        variant: 'destructive',
       });
     } finally {
       setIsSubmitting(false);
@@ -136,7 +142,8 @@ const LLmInterface = () => {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <button className='px-2 sm:px-3 py-1 sm:py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-xs sm:text-sm flex items-center gap-1'>
-                      <span className='hidden sm:inline'>Context: </span>{selectedContext}
+                      <span className='hidden sm:inline'>Context: </span>
+                      {selectedContext}
                       <svg
                         className='w-3 h-3 sm:w-4 sm:h-4'
                         fill='none'
@@ -211,10 +218,10 @@ const LLmInterface = () => {
               </div>
 
               {/* Send Button */}
-              <button 
+              <button
                 className={`absolute bottom-3 sm:bottom-4 right-3 sm:right-4 p-2 sm:p-3 rounded-lg transition-colors ${
-                  textareaValue.trim() && !isSubmitting && !isCreating 
-                    ? 'bg-[#0a0a0a] text-white hover:bg-[#2a2a2a]' 
+                  textareaValue.trim() && !isSubmitting && !isCreating
+                    ? 'bg-[#0a0a0a] text-white hover:bg-[#2a2a2a]'
                     : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                 }`}
                 disabled={!textareaValue.trim() || isSubmitting || isCreating}
@@ -314,17 +321,23 @@ const LLmInterface = () => {
             )}
 
             <div className='flex flex-col sm:flex-row items-center justify-between mt-4 text-xs sm:text-sm text-[#6b6b6b] gap-2 sm:gap-0'>
-              <span className='text-center sm:text-left'>AI-powered legal research assistant</span>
-              <span className='text-center sm:text-right'>{isSubmitting || isCreating ? 'Creating notebook...' : 'Press Enter to send'}</span>
+              <span className='text-center sm:text-left'>
+                AI-powered legal research assistant
+              </span>
+              <span className='text-center sm:text-right'>
+                {isSubmitting || isCreating
+                  ? 'Creating notebook...'
+                  : 'Press Enter to send'}
+              </span>
             </div>
           </div>
         </div>
       </div>
-      
+
       {/* Auth Modal */}
-      <AuthModal 
-        isOpen={isAuthModalOpen} 
-        onClose={() => setIsAuthModalOpen(false)} 
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
       />
     </div>
   );

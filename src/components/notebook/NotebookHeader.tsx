@@ -10,7 +10,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useLogout } from '@/services/authService';
+import { useClerk } from '@clerk/clerk-react';
+import { useToast } from '@/hooks/use-toast';
 import Logo from '@/components/ui/Logo';
 
 interface NotebookHeaderProps {
@@ -20,10 +21,30 @@ interface NotebookHeaderProps {
 
 const NotebookHeader = ({ title, notebookId }: NotebookHeaderProps) => {
   const navigate = useNavigate();
-  const { logout } = useLogout();
+  const { signOut } = useClerk();
+  const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(title);
   const { updateNotebook, isUpdating } = useNotebookUpdate();
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      toast({
+        title: 'Signed out',
+        description: 'You have been successfully signed out.',
+      });
+      navigate('/', { replace: true });
+    } catch (error) {
+      console.error('Logout error:', error);
+      toast({
+        title: 'Signed out',
+        description: 'You have been signed out locally.',
+        variant: 'default',
+      });
+      navigate('/', { replace: true });
+    }
+  };
 
   const handleTitleClick = () => {
     if (notebookId) {
@@ -102,7 +123,7 @@ const NotebookHeader = ({ title, notebookId }: NotebookHeaderProps) => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem onClick={logout} className="cursor-pointer">
+                <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
                   <LogOut className="h-4 w-4 mr-2" />
                   Sign Out
                 </DropdownMenuItem>

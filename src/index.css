@@ -2,6 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom styles for verification input */
+.verification-container {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.verification-character {
+  border: 2px solid #0a0a0a;
+  background: transparent;
+  border-radius: 0.5rem;
+  width: 3rem;
+  height: 3rem;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.verification-character:focus {
+  outline: none;
+  border-color: #0a0a0a;
+  box-shadow: 0 0 0 2px rgba(10, 10, 10, 0.1);
+}
+
+.verification-character--selected {
+  background-color: #f0f0f0;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

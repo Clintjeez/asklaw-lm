@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { useAuth as useClerkAuth } from '@clerk/clerk-react';
+import { useNavigate } from 'react-router-dom';
 import Header from '@/components/landing/Header';
 import Hero from '@/components/landing/Hero';
 import Features from '@/components/landing/Features';
@@ -11,6 +13,16 @@ import Security from '@/components/landing/Security';
 import PricingCalculator from '@/components/landing/PricingCalculator';
 
 const Landing = () => {
+  const { isLoaded, isSignedIn } = useClerkAuth();
+  const navigate = useNavigate();
+
+  // Redirect authenticated users to dashboard
+  useEffect(() => {
+    if (isLoaded && isSignedIn) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [isLoaded, isSignedIn, navigate]);
+
   // Smooth scroll animation setup
   useEffect(() => {
     const observerOptions = {

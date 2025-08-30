@@ -18,7 +18,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useLogout } from '@/services/authService';
+import { useClerk } from '@clerk/clerk-react';
+import { useToast } from '@/hooks/use-toast';
 
 interface SidebarProps {
   userEmail?: string;
@@ -27,7 +28,27 @@ interface SidebarProps {
 const Sidebar = ({ userEmail }: SidebarProps) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const navigate = useNavigate();
-  const { logout } = useLogout();
+  const { signOut } = useClerk();
+  const { toast } = useToast();
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      toast({
+        title: 'Signed out',
+        description: 'You have been successfully signed out.',
+      });
+      navigate('/', { replace: true });
+    } catch (error) {
+      console.error('Logout error:', error);
+      toast({
+        title: 'Signed out',
+        description: 'You have been signed out locally.',
+        variant: 'default',
+      });
+      navigate('/', { replace: true });
+    }
+  };
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
@@ -145,7 +166,7 @@ const Sidebar = ({ userEmail }: SidebarProps) => {
                 <Settings className='h-4 w-4 mr-2' />
                 Settings
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={logout} className='cursor-pointer'>
+              <DropdownMenuItem onClick={handleLogout} className='cursor-pointer'>
                 <LogOut className='h-4 w-4 mr-2' />
                 Sign Out
               </DropdownMenuItem>
