@@ -1,0 +1,333 @@
+'use client';
+
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { supabase } from '@/integrations/supabase/client';
+import WaitlistModal from '@/app/(landing-page)/WaitlistModal';
+import AuthModal from '@/components/auth/AuthModal';
+import { Menu, X, ChevronDown } from 'lucide-react';
+
+const Header = () => {
+  const router = useRouter();
+  const { isAuthenticated, user } = useAuth();
+  const [isWaitlistModalOpen, setIsWaitlistModalOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileResourcesOpen, setIsMobileResourcesOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+
+    if (!element) {
+      console.error(`Element with id "${sectionId}" not found`);
+      return;
+    }
+
+    // Get the actual header height dynamically
+    const header = document.querySelector('header');
+    const headerHeight = header ? header.offsetHeight : 64;
+
+    // Add some extra padding for better visual spacing
+    const extraPadding = 20;
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition =
+      elementPosition + window.pageYOffset - headerHeight - extraPadding;
+
+    window.scrollTo({
+      top: Math.max(0, offsetPosition), // Ensure we don't scroll above the top
+      behavior: 'smooth',
+    });
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.push('/');
+  };
+
+  return (
+    <header className='fixed top-0 left-0 right-0 z-50 bg-[#fbfbf963] backdrop-blur-sm'>
+      <nav className='max-w-8xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between'>
+        {/* Logo */}
+        <div
+          className='flex items-center gap-1 cursor-pointer'
+          onClick={() => router.push('/')}
+        >
+          <img
+            src='/asklawlm_logo.png'
+            alt='AskLaw LM Logo'
+            className='h-6 w-8 object-contain'
+          />
+          <h1 className='text-lg sm:text-xl font-semibold text-[#0a0a0a] hover:text-[#2a2a2a] transition-colors'>
+            AskLawLM
+          </h1>
+        </div>
+
+        {/* Desktop Navigation */}
+        <div className='hidden lg:flex items-center gap-8'>
+          <div className='flex items-center space-x-8'>
+            <button
+              onClick={() => scrollToSection('why')}
+              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors cursor-pointer'
+            >
+              Why AskLawLM
+            </button>
+            <button
+              onClick={() => scrollToSection('features')}
+              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors cursor-pointer'
+            >
+              Features
+            </button>
+            <button
+              onClick={() => scrollToSection('security')}
+              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors cursor-pointer'
+            >
+              Security
+            </button>
+            <button
+              onClick={() => scrollToSection('pricing')}
+              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors cursor-pointer'
+            >
+              Pricing
+            </button>
+            <button
+              onClick={() => scrollToSection('faq')}
+              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors cursor-pointer'
+            >
+              FAQ
+            </button>
+            <a
+              href='#'
+              onClick={() => setIsAuthModalOpen(true)}
+              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors cursor-pointer'
+            >
+              Sign in
+            </a>
+          </div>
+
+          {/* Desktop CTA Button or User Menu */}
+          {isMounted && isAuthenticated ? (
+            <div className='flex items-center gap-3'>
+              <Button
+                onClick={() => router.push('/dashboard')}
+                className='bg-[#0a0a0a] hover:bg-[#2a2a2a] text-white px-6 py-2 rounded-lg transition-colors'
+              >
+                Dashboard
+              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Avatar className='h-8 w-8 cursor-pointer'>
+                    <AvatarImage src={user?.user_metadata?.avatar_url} />
+                    <AvatarFallback className='bg-[#0a0a0a] text-white'>
+                      {user?.email?.charAt(0).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align='end' className='w-56'>
+                  <DropdownMenuItem onClick={() => router.push('/dashboard')}>
+                    Account Settings
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleLogout}>
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          ) : isMounted ? (
+            <Button
+              onClick={() => router.push('/signup')}
+              className='bg-[#0a0a0a] hover:bg-[#2a2a2a] text-white px-6 py-2 rounded-lg transition-colors'
+            >
+              Get Started
+            </Button>
+          ) : (
+            <div className='w-24 h-10' /> // Placeholder during hydration
+          )}
+        </div>
+
+        {/* Mobile Navigation */}
+        <div className='lg:hidden flex items-center gap-4'>
+          {/* Mobile CTA/User for authenticated users */}
+          {isMounted && isAuthenticated ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar className='h-8 w-8 cursor-pointer'>
+                  <AvatarImage src={user?.user_metadata?.avatar_url} />
+                  <AvatarFallback className='bg-[#0a0a0a] text-white'>
+                    {user?.email?.charAt(0).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align='end' className='w-56'>
+                <DropdownMenuItem onClick={() => router.push('/dashboard')}>
+                  Dashboard
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => router.push('/dashboard')}>
+                  Account Settings
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout}>
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : isMounted ? (
+            <Button
+              onClick={() => router.push('/signup')}
+              size='sm'
+              className='bg-[#0a0a0a] hover:bg-[#2a2a2a] text-white px-4 py-2 rounded-lg transition-colors'
+            >
+              Get Started
+            </Button>
+          ) : (
+            <div className='w-20 h-8' /> // Placeholder during hydration
+          )}
+
+          {/* Mobile Menu Button */}
+          <Button
+            variant='ghost'
+            size='sm'
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className='p-2'
+          >
+            {isMobileMenuOpen ? (
+              <X className='h-5 w-5' />
+            ) : (
+              <Menu className='h-5 w-5' />
+            )}
+          </Button>
+        </div>
+      </nav>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className='lg:hidden bg-white border-b border-gray-100 shadow-lg'>
+          <div className='px-4 py-4 space-y-4'>
+            <button
+              onClick={() => {
+                scrollToSection('why');
+                setIsMobileMenuOpen(false);
+              }}
+              className='block w-full text-left text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2 cursor-pointer'
+            >
+              Why AskLawLM
+            </button>
+            <button
+              onClick={() => {
+                scrollToSection('features');
+                setIsMobileMenuOpen(false);
+              }}
+              className='block w-full text-left text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2 cursor-pointer'
+            >
+              Features
+            </button>
+            <button
+              onClick={() => {
+                scrollToSection('security');
+                setIsMobileMenuOpen(false);
+              }}
+              className='block w-full text-left text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2 cursor-pointer'
+            >
+              Security
+            </button>
+            <button
+              onClick={() => {
+                scrollToSection('pricing');
+                setIsMobileMenuOpen(false);
+              }}
+              className='block w-full text-left text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2 cursor-pointer'
+            >
+              Pricing
+            </button>
+            <button
+              onClick={() => {
+                scrollToSection('faq');
+                setIsMobileMenuOpen(false);
+              }}
+              className='block w-full text-left text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2 cursor-pointer'
+            >
+              FAQ
+            </button>
+            {/* Mobile Resources Dropdown */}
+            <div>
+              <button
+                onClick={() => setIsMobileResourcesOpen(!isMobileResourcesOpen)}
+                className='flex items-center justify-between w-full text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2'
+              >
+                Resources
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform ${isMobileResourcesOpen ? 'rotate-180' : ''}`}
+                />
+              </button>
+              {isMobileResourcesOpen && (
+                <div className='ml-4 mt-2 space-y-2'>
+                  <div
+                    className='py-2 cursor-pointer'
+                    onClick={() => {
+                      router.push('/blog');
+                      setIsMobileMenuOpen(false);
+                      setIsMobileResourcesOpen(false);
+                    }}
+                  >
+                    <div className='font-medium text-[#0a0a0a] text-sm'>
+                      Blog
+                    </div>
+                  </div>
+                  <div
+                    className='py-2 cursor-pointer'
+                    onClick={() => {
+                      router.push('/changelog');
+                      setIsMobileMenuOpen(false);
+                      setIsMobileResourcesOpen(false);
+                    }}
+                  >
+                    <div className='font-medium text-[#0a0a0a] text-sm'>
+                      Changelog
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <a
+              href='#'
+              onClick={() => {
+                setIsAuthModalOpen(true);
+                setIsMobileMenuOpen(false);
+              }}
+              className='block text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2 cursor-pointer'
+            >
+              Login
+            </a>
+          </div>
+        </div>
+      )}
+
+      {/* Waitlist Modal */}
+      <WaitlistModal
+        isOpen={isWaitlistModalOpen}
+        onClose={() => setIsWaitlistModalOpen(false)}
+      />
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+      />
+    </header>
+  );
+};
+
+export default Header;

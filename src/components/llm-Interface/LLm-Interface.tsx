@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotebooks } from '@/hooks/useNotebooks';
 import { useToast } from '@/hooks/use-toast';
@@ -12,7 +12,7 @@ import {
 import AuthModal from '@/components/auth/AuthModal';
 
 const LLmInterface = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { isAuthenticated } = useAuth();
   const { createNotebook, isCreating } = useNotebooks();
   const { toast } = useToast();
@@ -82,7 +82,7 @@ const LLmInterface = () => {
             sessionStorage.setItem('initialQuery', textareaValue.trim());
 
             // Navigate to the new notebook
-            navigate(`/notebook/${notebook.id}`);
+            router.push(`/notebook/${notebook.id}`);
 
             toast({
               title: 'Research Started',

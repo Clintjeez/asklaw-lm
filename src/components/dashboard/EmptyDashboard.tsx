@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Upload, FileText, Globe, Video, Mic } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { useNotebooks } from '@/hooks/useNotebooks';
 const EmptyDashboard = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const {
     createNotebook,
     isCreating
@@ -18,7 +18,7 @@ const EmptyDashboard = () => {
     }, {
       onSuccess: data => {
         console.log('Navigating to notebook:', data.id);
-        navigate(`/notebook/${data.id}`);
+        router.push(`/notebook/${data.id}`);
       },
       onError: error => {
         console.error('Failed to create notebook:', error);

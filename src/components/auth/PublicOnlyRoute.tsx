@@ -1,6 +1,7 @@
 import React from 'react';
-import { useAuth as useClerkAuth } from '@clerk/clerk-react';
-import { Navigate } from 'react-router-dom';
+import { useAuth as useClerkAuth } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 interface PublicOnlyRouteProps {
   children: React.ReactNode;
@@ -9,6 +10,13 @@ interface PublicOnlyRouteProps {
 
 const PublicOnlyRoute = ({ children, redirectTo = '/dashboard' }: PublicOnlyRouteProps) => {
   const { isLoaded, isSignedIn } = useClerkAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isLoaded && isSignedIn) {
+      router.replace(redirectTo);
+    }
+  }, [isLoaded, isSignedIn, router, redirectTo]);
 
   if (!isLoaded) {
     return (
@@ -21,9 +29,9 @@ const PublicOnlyRoute = ({ children, redirectTo = '/dashboard' }: PublicOnlyRout
     );
   }
 
-  // If user is authenticated, redirect them to dashboard
+  // If user is authenticated, don't render children (redirect will happen via useEffect)
   if (isSignedIn) {
-    return <Navigate to={redirectTo} replace />;
+    return null;
   }
 
   // If not authenticated, show the auth page

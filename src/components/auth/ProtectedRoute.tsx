@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { useAuth as useClerkAuth } from '@clerk/clerk-react';
+import { useAuth as useClerkAuth } from '@clerk/nextjs';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;

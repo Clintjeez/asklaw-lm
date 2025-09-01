@@ -11,7 +11,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import Logo from '@/components/ui/Logo';
 
@@ -25,16 +25,16 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
-  const navigate = useNavigate();
+  const router = useRouter();
   const { isAuthenticated } = useAuth();
 
   // Close modal and redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
       onClose();
-      navigate('/dashboard');
+      router.push('/dashboard');
     }
-  }, [isAuthenticated, navigate, onClose]);
+  }, [isAuthenticated, router, onClose]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

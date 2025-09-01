@@ -1,27 +1,27 @@
 import { useEffect } from 'react';
-import { useAuth as useClerkAuth } from '@clerk/clerk-react';
-import { useNavigate } from 'react-router-dom';
-import Header from '@/components/landing/Header';
+import { useAuth as useClerkAuth } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
+import Header from '@/app/(landing-page)/Header';
 import Hero from '@/components/landing/Hero';
-import Features from '@/components/landing/Features';
+import Features from '@/app/(landing-page)/Features';
 import HowItWorks from '@/components/landing/HowItWorks';
 import CTASection from '@/components/landing/CTASection';
-import FAQ from '@/components/landing/FAQ';
-import Footer from '@/components/landing/Footer';
+import FAQ from '@/app/(landing-page)/FAQ';
+import Footer from '@/app/(landing-page)/Footer';
 import WhySection from '@/components/landing/WhySection';
-import Security from '@/components/landing/Security';
+import Security from '@/app/(landing-page)/Security';
 import PricingCalculator from '@/components/landing/PricingCalculator';
 
 const Landing = () => {
   const { isLoaded, isSignedIn } = useClerkAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   // Redirect authenticated users to dashboard
   useEffect(() => {
     if (isLoaded && isSignedIn) {
-      navigate('/dashboard', { replace: true });
+      router.replace('/dashboard');
     }
-  }, [isLoaded, isSignedIn, navigate]);
+  }, [isLoaded, isSignedIn, router]);
 
   // Smooth scroll animation setup
   useEffect(() => {
@@ -77,6 +77,18 @@ const Landing = () => {
         
         html {
           scroll-behavior: smooth;
+        }
+        
+        /* Ensure sections have enough spacing for proper navigation */
+        [id^="why"], [id^="features"], [id^="how-it-works"], [id^="security"], [id^="pricing"], [id^="faq"] {
+          scroll-margin-top: 100px; /* Account for fixed header + padding */
+        }
+        
+        /* Smooth transitions for focus states */
+        button:focus-visible {
+          outline: 2px solid #0a0a0a;
+          outline-offset: 2px;
+          border-radius: 2px;
         }
       `}</style>
 

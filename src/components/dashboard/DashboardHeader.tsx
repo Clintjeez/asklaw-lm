@@ -3,9 +3,9 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { User, LogOut } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { useClerk } from '@clerk/clerk-react';
+import { useClerk } from '@clerk/nextjs';
 import { useToast } from '@/hooks/use-toast';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import Logo from '@/components/ui/Logo';
 
 interface DashboardHeaderProps {
@@ -15,7 +15,7 @@ interface DashboardHeaderProps {
 const DashboardHeader = ({ userEmail }: DashboardHeaderProps) => {
   const { signOut } = useClerk();
   const { toast } = useToast();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleLogout = async () => {
     try {
@@ -24,7 +24,7 @@ const DashboardHeader = ({ userEmail }: DashboardHeaderProps) => {
         title: 'Signed out',
         description: 'You have been successfully signed out.',
       });
-      navigate('/', { replace: true });
+      router.replace('/');
     } catch (error) {
       console.error('Logout error:', error);
       toast({
@@ -32,7 +32,7 @@ const DashboardHeader = ({ userEmail }: DashboardHeaderProps) => {
         description: 'You have been signed out locally.',
         variant: 'default',
       });
-      navigate('/', { replace: true });
+      router.replace('/');
     }
   };
 

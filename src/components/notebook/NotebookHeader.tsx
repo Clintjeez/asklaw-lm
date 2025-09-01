@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { User, LogOut } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { useNotebookUpdate } from '@/hooks/useNotebookUpdate';
 import {
   DropdownMenu,
@@ -10,7 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useClerk } from '@clerk/clerk-react';
+import { useClerk } from '@clerk/nextjs';
 import { useToast } from '@/hooks/use-toast';
 import Logo from '@/components/ui/Logo';
 
@@ -20,7 +20,7 @@ interface NotebookHeaderProps {
 }
 
 const NotebookHeader = ({ title, notebookId }: NotebookHeaderProps) => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { signOut } = useClerk();
   const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
@@ -34,7 +34,7 @@ const NotebookHeader = ({ title, notebookId }: NotebookHeaderProps) => {
         title: 'Signed out',
         description: 'You have been successfully signed out.',
       });
-      navigate('/', { replace: true });
+      router.replace('/');
     } catch (error) {
       console.error('Logout error:', error);
       toast({
@@ -42,7 +42,7 @@ const NotebookHeader = ({ title, notebookId }: NotebookHeaderProps) => {
         description: 'You have been signed out locally.',
         variant: 'default',
       });
-      navigate('/', { replace: true });
+      router.replace('/');
     }
   };
 
@@ -77,7 +77,7 @@ const NotebookHeader = ({ title, notebookId }: NotebookHeaderProps) => {
   };
 
   const handleIconClick = () => {
-    navigate('/');
+    router.push('/');
   };
 
   return (

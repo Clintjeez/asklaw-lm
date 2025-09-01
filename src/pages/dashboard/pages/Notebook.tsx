@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'next/navigation';
 import { useNotebooks } from '@/hooks/useNotebooks';
 import { useSources } from '@/hooks/useSources';
 import { useIsDesktop } from '@/hooks/useIsDesktop';
@@ -12,7 +12,8 @@ import MobileNotebookTabs from '@/components/notebook/MobileNotebookTabs';
 import { Citation } from '@/types/message';
 
 const Notebook = () => {
-  const { id: notebookId } = useParams();
+  const { id: notebookIdParam } = useParams();
+  const notebookId = Array.isArray(notebookIdParam) ? notebookIdParam[0] : notebookIdParam;
   const { notebooks } = useNotebooks();
   const { sources } = useSources(notebookId);
   const [selectedCitation, setSelectedCitation] = useState<Citation | null>(null);

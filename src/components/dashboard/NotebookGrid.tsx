@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import NotebookCard from './NotebookCard';
 import { Check, Grid3X3, List, ChevronDown } from 'lucide-react';
 import { useNotebooks } from '@/hooks/useNotebooks';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,7 +21,7 @@ const NotebookGrid = () => {
     createNotebook,
     isCreating
   } = useNotebooks();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const sortedNotebooks = useMemo(() => {
     if (!notebooks) return [];
@@ -44,7 +44,7 @@ const NotebookGrid = () => {
     }, {
       onSuccess: data => {
         console.log('Navigating to notebook:', data.id);
-        navigate(`/notebook/${data.id}`);
+        router.push(`/notebook/${data.id}`);
       },
       onError: error => {
         console.error('Failed to create notebook:', error);
@@ -60,7 +60,7 @@ const NotebookGrid = () => {
       console.log('Click prevented due to delete action');
       return;
     }
-    navigate(`/notebook/${notebookId}`);
+    router.push(`/notebook/${notebookId}`);
   };
 
   if (isLoading) {

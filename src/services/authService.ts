@@ -1,12 +1,12 @@
 
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 
 export const useLogout = () => {
   const { signOut } = useAuth();
   const { toast } = useToast();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const logout = async () => {
     try {
@@ -18,7 +18,7 @@ export const useLogout = () => {
       });
       
       // Redirect to auth page
-      navigate('/auth', { replace: true });
+      router.replace('/auth');
       
     } catch (error: any) {
       console.error('Logout error:', error);
@@ -30,7 +30,7 @@ export const useLogout = () => {
         variant: "default"
       });
       
-      navigate('/auth', { replace: true });
+      router.replace('/auth');
     }
   };
 

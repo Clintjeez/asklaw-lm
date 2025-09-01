@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import {
   Menu,
@@ -18,7 +18,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useClerk } from '@clerk/clerk-react';
+import { useClerk } from '@clerk/nextjs';
 import { useToast } from '@/hooks/use-toast';
 
 interface SidebarProps {
@@ -27,7 +27,7 @@ interface SidebarProps {
 
 const Sidebar = ({ userEmail }: SidebarProps) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const navigate = useNavigate();
+  const router = useRouter();
   const { signOut } = useClerk();
   const { toast } = useToast();
 
@@ -38,7 +38,7 @@ const Sidebar = ({ userEmail }: SidebarProps) => {
         title: 'Signed out',
         description: 'You have been successfully signed out.',
       });
-      navigate('/', { replace: true });
+      router.replace('/');
     } catch (error) {
       console.error('Logout error:', error);
       toast({
@@ -46,7 +46,7 @@ const Sidebar = ({ userEmail }: SidebarProps) => {
         description: 'You have been signed out locally.',
         variant: 'default',
       });
-      navigate('/', { replace: true });
+      router.replace('/');
     }
   };
 
@@ -121,7 +121,7 @@ const Sidebar = ({ userEmail }: SidebarProps) => {
                       ? 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                       : 'text-gray-700 hover:bg-gray-100'
                   }`}
-                  onClick={() => navigate(item.path)}
+                  onClick={() => router.push(item.path)}
                 >
                   <item.icon
                     className={`h-5 w-5 ${isCollapsed ? 'mx-auto' : ''}`}
@@ -160,7 +160,7 @@ const Sidebar = ({ userEmail }: SidebarProps) => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align='end' className='w-48'>
               <DropdownMenuItem
-                onClick={() => navigate('/settings')}
+                onClick={() => router.push('/settings')}
                 className='cursor-pointer'
               >
                 <Settings className='h-4 w-4 mr-2' />
