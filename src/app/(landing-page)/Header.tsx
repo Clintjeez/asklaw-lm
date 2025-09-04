@@ -3,69 +3,51 @@
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { supabase } from '@/integrations/supabase/client';
-import WaitlistModal from '@/app/(landing-page)/WaitlistModal';
-import AuthModal from '@/components/auth/AuthModal';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { useAuth } from '@clerk/nextjs';
+import { UserButton } from '@clerk/nextjs';
+import { Menu, X } from 'lucide-react';
+import Link from 'next/link';
 
 const Header = () => {
   const router = useRouter();
-  const { isAuthenticated, user } = useAuth();
-  const [isWaitlistModalOpen, setIsWaitlistModalOpen] = useState(false);
+  const { isSignedIn, isLoaded } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMobileResourcesOpen, setIsMobileResourcesOpen] = useState(false);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
+    if (!element) return;
 
-    if (!element) {
-      console.error(`Element with id "${sectionId}" not found`);
-      return;
-    }
-
-    // Get the actual header height dynamically
-    const header = document.querySelector('header');
-    const headerHeight = header ? header.offsetHeight : 64;
-
-    // Add some extra padding for better visual spacing
-    const extraPadding = 20;
+    const headerHeight = 80;
     const elementPosition = element.getBoundingClientRect().top;
-    const offsetPosition =
-      elementPosition + window.pageYOffset - headerHeight - extraPadding;
+    const offsetPosition = elementPosition + window.scrollY - headerHeight;
 
     window.scrollTo({
-      top: Math.max(0, offsetPosition), // Ensure we don't scroll above the top
+      top: Math.max(0, offsetPosition),
       behavior: 'smooth',
     });
   };
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.push('/');
+  const handleNavClick = (sectionId: string) => {
+    scrollToSection(sectionId);
+    setIsMobileMenuOpen(false);
   };
 
   return (
     <header className='fixed top-0 left-0 right-0 z-50 bg-[#fbfbf963] backdrop-blur-sm'>
       <nav className='max-w-8xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between'>
         {/* Logo */}
-        <div
-          className='flex items-center gap-1 cursor-pointer'
-          onClick={() => router.push('/')}
-        >
+        <Link href="/" className='flex items-center gap-1'>
           <img
             src='/asklawlm_logo.png'
             alt='AskLaw LM Logo'
@@ -74,52 +56,51 @@ const Header = () => {
           <h1 className='text-lg sm:text-xl font-semibold text-[#0a0a0a] hover:text-[#2a2a2a] transition-colors'>
             AskLawLM
           </h1>
-        </div>
+        </Link>
 
         {/* Desktop Navigation */}
         <div className='hidden lg:flex items-center gap-8'>
-          <div className='flex items-center space-x-8'>
+          <nav className='flex items-center space-x-8'>
             <button
               onClick={() => scrollToSection('why')}
-              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors cursor-pointer'
+              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors'
             >
               Why AskLawLM
             </button>
             <button
               onClick={() => scrollToSection('features')}
-              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors cursor-pointer'
+              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors'
             >
               Features
             </button>
             <button
               onClick={() => scrollToSection('security')}
-              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors cursor-pointer'
+              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors'
             >
               Security
             </button>
             <button
               onClick={() => scrollToSection('pricing')}
-              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors cursor-pointer'
+              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors'
             >
               Pricing
             </button>
             <button
               onClick={() => scrollToSection('faq')}
-              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors cursor-pointer'
+              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors'
             >
               FAQ
             </button>
-            <a
-              href='#'
-              onClick={() => setIsAuthModalOpen(true)}
-              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors cursor-pointer'
+            <button
+              onClick={() => router.push('/signin')}
+              className='text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors'
             >
-              Sign in
-            </a>
-          </div>
+              Sign In
+            </button>
+          </nav>
 
           {/* Desktop CTA Button or User Menu */}
-          {isMounted && isAuthenticated ? (
+          {isLoaded && isSignedIn ? (
             <div className='flex items-center gap-3'>
               <Button
                 onClick={() => router.push('/dashboard')}
@@ -127,26 +108,9 @@ const Header = () => {
               >
                 Dashboard
               </Button>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Avatar className='h-8 w-8 cursor-pointer'>
-                    <AvatarImage src={user?.user_metadata?.avatar_url} />
-                    <AvatarFallback className='bg-[#0a0a0a] text-white'>
-                      {user?.email?.charAt(0).toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align='end' className='w-56'>
-                  <DropdownMenuItem onClick={() => router.push('/dashboard')}>
-                    Account Settings
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={handleLogout}>
-                    Logout
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <UserButton />
             </div>
-          ) : isMounted ? (
+          ) : isLoaded ? (
             <Button
               onClick={() => router.push('/signup')}
               className='bg-[#0a0a0a] hover:bg-[#2a2a2a] text-white px-6 py-2 rounded-lg transition-colors'
@@ -154,36 +118,25 @@ const Header = () => {
               Get Started
             </Button>
           ) : (
-            <div className='w-24 h-10' /> // Placeholder during hydration
+            <div className='w-24 h-10 animate-pulse bg-gray-200 rounded' />
           )}
         </div>
 
         {/* Mobile Navigation */}
         <div className='lg:hidden flex items-center gap-4'>
           {/* Mobile CTA/User for authenticated users */}
-          {isMounted && isAuthenticated ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Avatar className='h-8 w-8 cursor-pointer'>
-                  <AvatarImage src={user?.user_metadata?.avatar_url} />
-                  <AvatarFallback className='bg-[#0a0a0a] text-white'>
-                    {user?.email?.charAt(0).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align='end' className='w-56'>
-                <DropdownMenuItem onClick={() => router.push('/dashboard')}>
-                  Dashboard
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => router.push('/dashboard')}>
-                  Account Settings
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={handleLogout}>
-                  Logout
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : isMounted ? (
+          {isLoaded && isSignedIn ? (
+            <div className='flex items-center gap-2'>
+              <Button
+                onClick={() => router.push('/dashboard')}
+                size='sm'
+                className='bg-[#0a0a0a] hover:bg-[#2a2a2a] text-white px-3 py-1 text-sm rounded-lg transition-colors'
+              >
+                Dashboard
+              </Button>
+              <UserButton />
+            </div>
+          ) : isLoaded ? (
             <Button
               onClick={() => router.push('/signup')}
               size='sm'
@@ -192,7 +145,7 @@ const Header = () => {
               Get Started
             </Button>
           ) : (
-            <div className='w-20 h-8' /> // Placeholder during hydration
+            <div className='w-20 h-8 animate-pulse bg-gray-200 rounded' />
           )}
 
           {/* Mobile Menu Button */}
@@ -216,116 +169,47 @@ const Header = () => {
         <div className='lg:hidden bg-white border-b border-gray-100 shadow-lg'>
           <div className='px-4 py-4 space-y-4'>
             <button
-              onClick={() => {
-                scrollToSection('why');
-                setIsMobileMenuOpen(false);
-              }}
-              className='block w-full text-left text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2 cursor-pointer'
+              onClick={() => handleNavClick('why')}
+              className='block w-full text-left text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2'
             >
               Why AskLawLM
             </button>
             <button
-              onClick={() => {
-                scrollToSection('features');
-                setIsMobileMenuOpen(false);
-              }}
-              className='block w-full text-left text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2 cursor-pointer'
+              onClick={() => handleNavClick('features')}
+              className='block w-full text-left text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2'
             >
               Features
             </button>
             <button
-              onClick={() => {
-                scrollToSection('security');
-                setIsMobileMenuOpen(false);
-              }}
-              className='block w-full text-left text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2 cursor-pointer'
+              onClick={() => handleNavClick('security')}
+              className='block w-full text-left text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2'
             >
               Security
             </button>
             <button
-              onClick={() => {
-                scrollToSection('pricing');
-                setIsMobileMenuOpen(false);
-              }}
-              className='block w-full text-left text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2 cursor-pointer'
+              onClick={() => handleNavClick('pricing')}
+              className='block w-full text-left text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2'
             >
               Pricing
             </button>
             <button
-              onClick={() => {
-                scrollToSection('faq');
-                setIsMobileMenuOpen(false);
-              }}
-              className='block w-full text-left text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2 cursor-pointer'
+              onClick={() => handleNavClick('faq')}
+              className='block w-full text-left text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2'
             >
               FAQ
             </button>
-            {/* Mobile Resources Dropdown */}
-            <div>
-              <button
-                onClick={() => setIsMobileResourcesOpen(!isMobileResourcesOpen)}
-                className='flex items-center justify-between w-full text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2'
-              >
-                Resources
-                <ChevronDown
-                  className={`h-4 w-4 transition-transform ${isMobileResourcesOpen ? 'rotate-180' : ''}`}
-                />
-              </button>
-              {isMobileResourcesOpen && (
-                <div className='ml-4 mt-2 space-y-2'>
-                  <div
-                    className='py-2 cursor-pointer'
-                    onClick={() => {
-                      router.push('/blog');
-                      setIsMobileMenuOpen(false);
-                      setIsMobileResourcesOpen(false);
-                    }}
-                  >
-                    <div className='font-medium text-[#0a0a0a] text-sm'>
-                      Blog
-                    </div>
-                  </div>
-                  <div
-                    className='py-2 cursor-pointer'
-                    onClick={() => {
-                      router.push('/changelog');
-                      setIsMobileMenuOpen(false);
-                      setIsMobileResourcesOpen(false);
-                    }}
-                  >
-                    <div className='font-medium text-[#0a0a0a] text-sm'>
-                      Changelog
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <a
-              href='#'
+            <button
               onClick={() => {
-                setIsAuthModalOpen(true);
+                router.push('/signin');
                 setIsMobileMenuOpen(false);
               }}
-              className='block text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2 cursor-pointer'
+              className='block w-full text-left text-[#6b6b6b] hover:text-[#0a0a0a] transition-colors py-2'
             >
-              Login
-            </a>
+              Sign In
+            </button>
           </div>
         </div>
       )}
-
-      {/* Waitlist Modal */}
-      <WaitlistModal
-        isOpen={isWaitlistModalOpen}
-        onClose={() => setIsWaitlistModalOpen(false)}
-      />
-
-      {/* Auth Modal */}
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
-      />
     </header>
   );
 };

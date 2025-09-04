@@ -1,9 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import LLmInterface from '../llm-Interface/LLm-Interface';
-import AuthModal from '@/components/auth/AuthModal';
-import WaitlistModal from './WaitlistModal';
+import LLmInterface from '@/components/llm-Interface/LLm-Interface';
+// import WaitlistModal from './WaitlistModal';
 const Hero = () => {
   const router = useRouter();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -64,17 +63,11 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Auth Modal */}
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
-      />
-
       {/* Waitlist Modal */}
-      <WaitlistModal
+      {/* <WaitlistModal
         isOpen={isWaitlistModalOpen}
         onClose={() => setIsWaitlistModalOpen(false)}
-      />
+      /> */}
     </main>
   );
 };

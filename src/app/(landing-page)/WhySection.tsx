@@ -1,6 +1,6 @@
 'use client';
 import { MoveRight } from 'lucide-react';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import WaitlistModal from '../../app/(landing-page)/WaitlistModal';
 import { useState } from 'react';
 

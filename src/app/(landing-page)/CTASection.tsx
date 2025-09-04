@@ -1,8 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle } from 'lucide-react';
 import { useState } from 'react';
-import WaitlistModal from './WaitlistModal';
-import AuthModal from '@/components/auth/AuthModal';
+// import WaitlistModal from './WaitlistModal';
 
 interface CTASectionProps {
   variant?: 'primary' | 'secondary';
@@ -87,16 +86,10 @@ const CTASection = ({
         </div>
       </div>
 
-      {/* Modals */}
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
-      />
-
-      <WaitlistModal
+      {/* <WaitlistModal
         isOpen={isWaitlistModalOpen}
         onClose={() => setIsWaitlistModalOpen(false)}
-      />
+      /> */}
     </section>
   );
 };

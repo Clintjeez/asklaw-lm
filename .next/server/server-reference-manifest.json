@@ -3,14 +3,20 @@
     "b04e8beddd48c5bd2f50784c155a22262ebe201f": {
       "workers": {
         "app/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fclinton%2FDesktop%2FWORK_STATION%2FDEVLAB%2FAskLaw-LM%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fserver-actions.js%22%2C%5B%22invalidateCacheAction%22%5D%5D%5D&__client_imported__=true!",
-        "app/_not-found/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fclinton%2FDesktop%2FWORK_STATION%2FDEVLAB%2FAskLaw-LM%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fserver-actions.js%22%2C%5B%22invalidateCacheAction%22%5D%5D%5D&__client_imported__=true!"
+        "app/_not-found/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fclinton%2FDesktop%2FWORK_STATION%2FDEVLAB%2FAskLaw-LM%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fserver-actions.js%22%2C%5B%22invalidateCacheAction%22%5D%5D%5D&__client_imported__=true!",
+        "app/(auth)/signin/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fclinton%2FDesktop%2FWORK_STATION%2FDEVLAB%2FAskLaw-LM%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fserver-actions.js%22%2C%5B%22invalidateCacheAction%22%5D%5D%5D&__client_imported__=true!",
+        "app/(auth)/forgot-password/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fclinton%2FDesktop%2FWORK_STATION%2FDEVLAB%2FAskLaw-LM%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fserver-actions.js%22%2C%5B%22invalidateCacheAction%22%5D%5D%5D&__client_imported__=true!",
+        "app/(dashboard)/dashboard/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fclinton%2FDesktop%2FWORK_STATION%2FDEVLAB%2FAskLaw-LM%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fserver-actions.js%22%2C%5B%22invalidateCacheAction%22%5D%5D%5D&__client_imported__=true!"
       },
       "layer": {
         "app/page": "action-browser",
-        "app/_not-found/page": "action-browser"
+        "app/_not-found/page": "action-browser",
+        "app/(auth)/signin/page": "action-browser",
+        "app/(auth)/forgot-password/page": "action-browser",
+        "app/(dashboard)/dashboard/page": "action-browser"
       }
     }
   },
   "edge": {},
-  "encryptionKey": "WOMrwNwUXLy0Ln5K/AM8RhoKyksU9YsPRngA6vzJksI="
+  "encryptionKey": "o6rb8V4/niZ+uAxTe7ltvBBWiYZ32l2Jh61fNYHFdR0="
 }
